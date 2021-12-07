@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Ajax Services and Promise</title>
+    <style>
+        .body {
+            margin: auto
+        }
+
+        div {
+            border: 1px solid black;
+            background-color: lightblue;
+            padding: 50px;
+            width: 80%;
+            font-size: xx-large;
+            margin-top: 50px;
+        }
+    </style>
+    <script src="httpServices.js "></script>
+</head>
+
+<body>
+    <h1> The Test Services Result</h1>
+    <div id="get_services"></div>
+    <div id="delete_services"></div>
+    <div id="post_services"></div>
+
+    <script>
+        const getElem = document.querySelector("#get_services");
+        const getURL = "http://127.0.0.1:3000/EmployeePayrollDB/1";
+        makeServiceCall("GET", getURL, true)
+            .then(responseText => {
+                getElem.textContent = "Get User Data: " + responseText;
+            })
+            .catch(error => {
+                getElem.textContent = "Get Error Status:" + JSON.stringify(error);
+            });
+        const deleteElem = document.querySelector("#delete_services");
+        const deleteURl = "http://127.0.0.1:3000/EmployeePayrollDB/3";
+        makeServiceCall("DELETE", deleteURL, false)
+            .then(responseText => {
+                getElem.textContent = "Delete Data: " + responseText;
+            })
+            .catch(error => {
+                getElem.textContent = "Delete Error Status:" + JSON.stringify(error);
+            });
+        const empPayrollData = {
+            _name: "Nilesh B.",
+            _gender: "male",
+            _department: ['sales'],
+            _salary: 502000,
+            _startDate: "15 Dec 2021",
+            _note: '',
+            _profilePic: '../assets/profile-images/Ellipse -5.png'
+        };
+        const postElem = document.querySelector("#post_services");
+        const postURl = "http://127.0.0.1:3000/EmployeePayrollDB/";
+        makeServiceCall("POST", postURL, true, empPayrollData)
+            .then(responseText => {
+                getElem.textContent = "New User Data: " + responseText;
+            })
+            .catch(error => {
+                getElem.textContent = "POST Error Status:" + JSON.stringify(error);
+            });
+
+    </script>
+</body>
+
+
+</html>
